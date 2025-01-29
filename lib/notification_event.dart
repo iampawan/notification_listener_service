@@ -139,6 +139,16 @@ class ServiceNotificationEvent {
       content: $content
       hasRemoved: $hasRemoved
       haveExtraPicture: $haveExtraPicture
+      postTime: $postTime
+      isOngoing: $isOngoing
+      isClearable: $isClearable
+      userId: $userId
+      notificationKey: $notificationKey
+      groupKey: $groupKey
+      isGroup: $isGroup
+      isAppGroup: $isAppGroup
+      user: $user
+    )
       ''';
   }
 }
