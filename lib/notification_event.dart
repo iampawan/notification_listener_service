@@ -54,7 +54,7 @@ class ServiceNotificationEvent {
   int? postTime;
   bool? isOngoing;
   bool? isClearable;
-  int? userId;
+  String? userId;
   String? notificationKey;
   String? groupKey;
   bool? isGroup;
