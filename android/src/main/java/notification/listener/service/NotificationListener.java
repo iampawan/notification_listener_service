@@ -59,6 +59,33 @@ public class NotificationListener extends NotificationListenerService {
         intent.putExtra(NotificationConstants.ID, notification.getId());
         intent.putExtra(NotificationConstants.CAN_REPLY, action != null);
 
+        // Capture Additional Fields
+        intent.putExtra(NotificationConstants.NOTIFICATION_TAG, notification.getTag());
+        intent.putExtra(NotificationConstants.POST_TIME, notification.getPostTime());
+        intent.putExtra(NotificationConstants.IS_ONGOING, notification.isOngoing());
+        intent.putExtra(NotificationConstants.IS_CLEARABLE, notification.isClearable());
+        intent.putExtra(NotificationConstants.USER_ID, notification.getUserId());
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.KITKAT_WATCH) {
+            intent.putExtra(NotificationConstants.NOTIFICATION_KEY, notification.getKey());
+        }
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            intent.putExtra(NotificationConstants.GROUP_KEY, notification.getGroupKey());
+        }
+
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.N) {
+            intent.putExtra(NotificationConstants.IS_GROUP, notification.isGroup());
+        }
+
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.R) {
+            intent.putExtra(NotificationConstants.IS_APP_GROUP, notification.isAppGroup());
+        }
+
+        if (Build.VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            intent.putExtra(NotificationConstants.USER, notification.getUser().toString());
+        }
+
+
+
         if (NotificationUtils.getQuickReplyAction(notification.getNotification(), packageName) != null) {
             cachedNotifications.put(notification.getId(), action);
         }
@@ -109,7 +136,7 @@ public class NotificationListener extends NotificationListenerService {
             Drawable iconDrawable = largeIcon.loadDrawable(context);
             Bitmap iconBitmap = ((BitmapDrawable) iconDrawable).getBitmap();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            iconBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            iconBitmap.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
 
             return outputStream.toByteArray();
         } catch (Exception e) {

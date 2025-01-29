@@ -47,6 +47,15 @@ public class NotificationReceiver extends BroadcastReceiver {
         data.put("largeIcon", largeIcon);
         data.put("hasRemoved", hasRemoved);
         data.put("canReply", canReply);
+        data.put("postTime", intent.getLongExtra(NotificationConstants.POST_TIME, 0));
+        data.put("isOngoing", intent.getBooleanExtra(NotificationConstants.IS_ONGOING, false));
+        data.put("isClearable", intent.getBooleanExtra(NotificationConstants.IS_CLEARABLE, false));
+        data.put("userId", intent.getStringExtra(NotificationConstants.USER_ID));
+        data.put("notificationKey", intent.getStringExtra(NotificationConstants.NOTIFICATION_KEY));
+        data.put("groupKey", intent.getStringExtra(NotificationConstants.GROUP_KEY));
+        data.put("isGroup", intent.getBooleanExtra(NotificationConstants.IS_GROUP,false));
+        data.put("isAppGroup", intent.getBooleanExtra(NotificationConstants.IS_APP_GROUP,false));
+        data.put("user", intent.getStringExtra(NotificationConstants.USER));
 
         eventSink.success(data);
     }

@@ -51,6 +51,16 @@ class ServiceNotificationEvent {
   /// the content of the notification
   String? content;
 
+  int? postTime;
+  bool? isOngoing;
+  bool? isClearable;
+  int? userId;
+  String? notificationKey;
+  String? groupKey;
+  bool? isGroup;
+  bool? isAppGroup;
+  String? user;
+
   ServiceNotificationEvent({
     this.id,
     this.canReply,
@@ -62,6 +72,15 @@ class ServiceNotificationEvent {
     this.appIcon,
     this.largeIcon,
     this.content,
+    this.postTime,
+    this.isOngoing,
+    this.isClearable,
+    this.userId,
+    this.notificationKey,
+    this.groupKey,
+    this.isGroup,
+    this.isAppGroup,
+    this.user,
   });
 
   ServiceNotificationEvent.fromMap(Map<dynamic, dynamic> map) {
@@ -75,6 +94,25 @@ class ServiceNotificationEvent {
     appIcon = map['appIcon'];
     largeIcon = map['largeIcon'];
     content = map['content'];
+    postTime = map['postTime'];
+    isOngoing = map['isOngoing'];
+    isClearable = map['isClearable'];
+    userId = map['userId'];
+    notificationKey = map['notificationKey'];
+    groupKey = map['groupKey'];
+    isGroup = map['isGroup'];
+    isAppGroup = map['isAppGroup'];
+    user = map['user'];
+  }
+
+  /// Save this notification for later reply
+  static Future<void> scheduleReply(
+      int notificationId, String message, Duration delay) async {
+    await methodeChannel.invokeMethod("scheduleReply", {
+      'notificationId': notificationId,
+      'message': message,
+      'delay': delay.inSeconds, // Send delay in seconds
+    });
   }
 
   /// send a direct message reply to the incoming notification

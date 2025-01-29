@@ -14,6 +14,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.work.Data;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -28,6 +31,8 @@ import notification.listener.service.models.Action;
 import notification.listener.service.models.ActionCache;
 import android.annotation.SuppressLint;
 import android.os.Build;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class NotificationListenerServicePlugin implements FlutterPlugin, ActivityAware, MethodCallHandler, PluginRegistry.ActivityResultListener, EventChannel.StreamHandler {
@@ -76,9 +81,34 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
                 result.success(false);
                 e.printStackTrace();
             }
-        } else {
+        } else if (call.method.equals("scheduleReply")) {
+            int notificationId = call.argument("notificationId");
+            String message = call.argument("message");
+            int delaySeconds = call.argument("delay");
+
+            scheduleReply(context, notificationId, message, delaySeconds);
+            result.success(true);
+        }
+        else {
             result.notImplemented();
         }
+    }
+
+    private void scheduleReply(Context context, int notificationId, String message, int delaySeconds) {
+        WorkManager workManager = WorkManager.getInstance(context);
+
+        Data inputData = new Data.Builder()
+                .putInt("notificationId", notificationId)
+                .putString("message", message)
+                .build();
+
+        OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(DelayedReplyWorker.class)
+                .setInitialDelay(delaySeconds, TimeUnit.SECONDS)
+                .setInputData(inputData)
+                .build();
+
+        workManager.enqueue(workRequest);
+        Log.i("NotificationListener", "Scheduled delayed reply: " + message + " in " + delaySeconds + " seconds");
     }
 
     @Override

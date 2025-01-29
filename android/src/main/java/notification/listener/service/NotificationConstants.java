@@ -12,4 +12,14 @@ public final class NotificationConstants {
     public static String NOTIFICATIONS_LARGE_ICON = "notifications_large_icon";
     public static String IS_REMOVED = "is_removed";
     public static String CAN_REPLY = "can_reply_to_it";
+    public static String NOTIFICATION_TAG = "notification_tag";
+    public static String POST_TIME = "post_time";
+    public static String IS_ONGOING = "is_ongoing";
+    public static String IS_CLEARABLE = "is_clearable";
+    public static String USER_ID = "user_id";
+    public static String NOTIFICATION_KEY = "notification_key";
+    public static String GROUP_KEY = "group_key";
+    public static String IS_GROUP = "is_group";
+    public static String IS_APP_GROUP = "is_app_group";
+    public static String USER = "user";
 }
