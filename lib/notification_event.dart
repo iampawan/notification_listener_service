@@ -111,8 +111,8 @@ class ServiceNotificationEvent {
   static Future<void> scheduleReply(int notificationId, String notificationKey,
       String message, Duration delay) async {
     await methodeChannel.invokeMethod("scheduleReply", {
-      'notificationId': notificationKey,
-      'notificationKey': notificationId,
+      'notificationId': notificationId,
+      'notificationKey': notificationKey,
       'message': message,
       'delay': delay.inSeconds, // Send delay in seconds
     });
