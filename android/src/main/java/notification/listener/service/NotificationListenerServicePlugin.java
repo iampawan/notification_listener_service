@@ -83,10 +83,11 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
             }
         } else if (call.method.equals("scheduleReply")) {
             int notificationId = call.argument("notificationId");
+            String notificationKey = call.argument("notificationKey");
             String message = call.argument("message");
             int delaySeconds = call.argument("delay");
 
-            scheduleReply(context, notificationId, message, delaySeconds);
+            scheduleReply(context, notificationId,notificationKey, message, delaySeconds);
             result.success(true);
         }
         else {
@@ -94,11 +95,12 @@ public class NotificationListenerServicePlugin implements FlutterPlugin, Activit
         }
     }
 
-    private void scheduleReply(Context context, int notificationId, String message, int delaySeconds) {
+    private void scheduleReply(Context context, int notificationId, String notificationKey, String message, int delaySeconds) {
         WorkManager workManager = WorkManager.getInstance(context);
 
         Data inputData = new Data.Builder()
                 .putInt("notificationId", notificationId)
+                .putString("notificationKey", notificationKey)
                 .putString("message", message)
                 .build();
 

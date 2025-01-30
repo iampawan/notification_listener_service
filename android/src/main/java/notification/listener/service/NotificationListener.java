@@ -64,7 +64,7 @@ public class NotificationListener extends NotificationListenerService {
         intent.putExtra(NotificationConstants.POST_TIME, notification.getPostTime());
         intent.putExtra(NotificationConstants.IS_ONGOING, notification.isOngoing());
         intent.putExtra(NotificationConstants.IS_CLEARABLE, notification.isClearable());
-        intent.putExtra(NotificationConstants.USER_ID, notification.getUserId());
+        intent.putExtra(NotificationConstants.USER_ID, notification.getNotification().extras.toString());
         if (Build.VERSION.SDK_INT >= VERSION_CODES.KITKAT_WATCH) {
             intent.putExtra(NotificationConstants.NOTIFICATION_KEY, notification.getKey());
         }

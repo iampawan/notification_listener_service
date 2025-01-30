@@ -21,9 +21,10 @@ public class DelayedReplyWorker extends Worker {
     @Override
     public Result doWork() {
         int notificationId = getInputData().getInt("notificationId", -1);
+        String notificationKey = getInputData().getString("notificationKey");
         String message = getInputData().getString("message");
 
-        if (notificationId == -1 || message == null) {
+        if (notificationId == -1 || notificationKey == null || message == null) {
             return Result.failure();
         }
 

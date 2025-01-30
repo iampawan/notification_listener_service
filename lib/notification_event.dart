@@ -50,7 +50,7 @@ class ServiceNotificationEvent {
 
   /// the content of the notification
   String? content;
-
+  String? notificationTag;
   int? postTime;
   bool? isOngoing;
   bool? isClearable;
@@ -72,6 +72,7 @@ class ServiceNotificationEvent {
     this.appIcon,
     this.largeIcon,
     this.content,
+    this.notificationTag,
     this.postTime,
     this.isOngoing,
     this.isClearable,
@@ -94,6 +95,7 @@ class ServiceNotificationEvent {
     appIcon = map['appIcon'];
     largeIcon = map['largeIcon'];
     content = map['content'];
+    notificationTag = map['notificationTag'];
     postTime = map['postTime'];
     isOngoing = map['isOngoing'];
     isClearable = map['isClearable'];
@@ -106,10 +108,11 @@ class ServiceNotificationEvent {
   }
 
   /// Save this notification for later reply
-  static Future<void> scheduleReply(
-      int notificationId, String message, Duration delay) async {
+  static Future<void> scheduleReply(int notificationId, String notificationKey,
+      String message, Duration delay) async {
     await methodeChannel.invokeMethod("scheduleReply", {
-      'notificationId': notificationId,
+      'notificationId': notificationKey,
+      'notificationKey': notificationId,
       'message': message,
       'delay': delay.inSeconds, // Send delay in seconds
     });
@@ -139,6 +142,7 @@ class ServiceNotificationEvent {
       content: $content
       hasRemoved: $hasRemoved
       haveExtraPicture: $haveExtraPicture
+      notificationTag" $notificationTag
       postTime: $postTime
       isOngoing: $isOngoing
       isClearable: $isClearable

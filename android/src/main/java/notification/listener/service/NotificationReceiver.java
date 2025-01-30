@@ -47,6 +47,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         data.put("largeIcon", largeIcon);
         data.put("hasRemoved", hasRemoved);
         data.put("canReply", canReply);
+        data.put("notificationTag", intent.getStringExtra(NotificationConstants.NOTIFICATION_TAG));
         data.put("postTime", intent.getLongExtra(NotificationConstants.POST_TIME, 0));
         data.put("isOngoing", intent.getBooleanExtra(NotificationConstants.IS_ONGOING, false));
         data.put("isClearable", intent.getBooleanExtra(NotificationConstants.IS_CLEARABLE, false));
